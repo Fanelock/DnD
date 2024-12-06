@@ -13,13 +13,16 @@ class weapon_attack(ABC):
         if advantage:
             hit_roll_1 = rd.randint(1,20)
             hit_roll_2 = rd.randint(1,20)
+            print(hit_roll_1, hit_roll_2)
             self.hit_roll = max(hit_roll_1, hit_roll_2)
         elif disadvantage:
             hit_roll_1 = rd.randint(1, 20)
             hit_roll_2 = rd.randint(1, 20)
+            print(hit_roll_1, hit_roll_2)
             self.hit_roll = min(hit_roll_1, hit_roll_2)
         else:
             self.hit_roll = rd.randint(1, 20)
+            print(self.hit_roll)
         if dex:
             total = self.hit_roll + self.dex + self.prof
         else:
@@ -27,38 +30,20 @@ class weapon_attack(ABC):
 
         return total >= ac, self.hit_roll, advantage
 
-    def calc_dmg(self, hit, roll, number, dice_type, dex):
-        self.dmg = 0
-        if roll == 20:
-            for i in range(2 * number):
-                dmg_roll = rd.randint(1, dice_type)
-                self.dmg += dmg_roll
-            self.dmg += self.dex if dex else self.str
-            return self.dmg
-        elif not hit:
-            return self.dmg
-        else:
-            for i in range(number):
-                dmg_roll = rd.randint(1, dice_type)
-                self.dmg += dmg_roll
-            self.dmg += self.dex if dex else self.str
-        return self.dmg
 
-    @abstractmethod
-    def __str__(self):
-        pass
+weapon = weapon_attack(2, 3, 2)  # Using str_mod=2, dex_mod=3, prof_bonus=2
 
+# Assume the target's AC is 15
+ac = 15
 
+# Regular attack (no advantage, no disadvantage)
+hit, roll, advantage = weapon.attack_roll(ac, True, False, False)
+print(f"Regular Attack: Hit = {hit}, Roll = {roll}, Advantage = {advantage}")
 
+# Advantage attack (roll twice, take the higher)
+hit, roll, advantage = weapon.attack_roll(ac, True, True, False)
+print(f"Advantage Attack: Hit = {hit}, Roll = {roll}, Advantage = {advantage}")
 
-
-
-
-
-
-
-
-
-
-
-
+# Disadvantage attack (roll twice, take the lower)
+hit, roll, advantage = weapon.attack_roll(ac, True, False, True)
+print(f"Disadvantage Attack: Hit = {hit}, Roll = {roll}, Advantage = {advantage}")

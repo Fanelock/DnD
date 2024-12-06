@@ -8,8 +8,8 @@ class Greatsword(weapon_attack):
         self.dice_type = dice_type
         self.dmg = 0
 
-    def perform_attack(self, ac, dex, mastery, fighting_style):
-        hit, roll = super().attack_roll(ac, dex)
+    def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style):
+        hit, roll, advantage = super().attack_roll(ac, dex, advantage, disadvantage)
 
         self.dmg = self.calc_dmg(hit, roll, self.number, self.dice_type, dex)
 

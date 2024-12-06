@@ -1,7 +1,7 @@
-import random as rd
 from Weapon_main import weapon_attack
+import random as rd
 
-class Longbow(weapon_attack):
+class Sneak_attack(weapon_attack):
     def __init__(self, str_mod, dex_mod, prof_bonus, number, dice_type):
         super().__init__(str_mod, dex_mod, prof_bonus)
         self.number = number
@@ -9,11 +9,14 @@ class Longbow(weapon_attack):
         self.dmg = 0
 
     def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style):
-        hit, roll, advantage = super().attack_roll(ac, dex, advantage, disadvantage)
+        pass
 
-        self.dmg = self.calc_dmg(hit, roll, self.number, self.dice_type, dex)
-
-        return hit, roll, self.dmg
+    def sneak_damage(self):
+        self.dmg = 0  # Reset the damage for each sneak attack calculation
+        for _ in range(self.number):
+            dmg_roll = rd.randint(1, self.dice_type)
+            self.dmg += dmg_roll
+        return self.dmg
 
     def __str__(self):
         return f"You Longbow deals {self.dmg} damage to the target!"
