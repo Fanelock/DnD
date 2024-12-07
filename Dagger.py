@@ -1,14 +1,15 @@
-from Weapon_main import weapon_attack
-from Sneak_attack import Sneak_attack
+from Weapon_main import Weapon_attack
+from Sneak_attack import SneakAttack
+from Rogue_class import Rogue
 
-class Dagger(weapon_attack):
-    def __init__(self, str_mod, dex_mod, prof_bonus, number, dice_type):
-        super().__init__(str_mod, dex_mod, prof_bonus)
+class Dagger(Weapon_attack):
+    def __init__(self, owner, number, dice_type):
+        super().__init__(owner)
         self.number = number
         self.dice_type = dice_type
         self.dmg = 0
 
-    def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style, sneak_attack: Sneak_attack = None):
+    def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style, sneak_attack: SneakAttack = None):
         hit, roll, advantage = super().attack_roll(ac, dex, advantage, disadvantage)
 
         self.dmg = self.calc_dmg(hit, roll, self.number, self.dice_type, dex)
@@ -20,20 +21,21 @@ class Dagger(weapon_attack):
             self.dmg += second_attack_dmg
 
             if second_attack_dmg != 0:
-                self.dmg += second_attack_dmg - self.dex
+                self.dmg += second_attack_dmg - self.owner.dex
 
-        sneak_attack_applied = False  # Flag to track if sneak attack has been applied
+        if isinstance(self.owner, Rogue):
+            sneak_attack_applied = False  # Flag to track if sneak attack has been applied
 
-        # Apply sneak attack only once, regardless of whether the first or second attack hits
-        if (advantage and hit and not sneak_attack_applied):
-            sneak_dmg = sneak_attack.sneak_damage()
-            self.dmg += sneak_dmg
-            sneak_attack_applied = True  # Set the flag to True so that we don't apply it again
+            # Apply sneak attack only once, regardless of whether the first or second attack hits
+            if (advantage and hit and not sneak_attack_applied):
+                sneak_dmg = sneak_attack.sneak_damage()
+                self.dmg += sneak_dmg
+                sneak_attack_applied = True  # Set the flag to True so that we don't apply it again
 
-        if (advantage and hit2 and not sneak_attack_applied):  # Only apply sneak attack if it's not already applied
-            sneak_dmg = sneak_attack.sneak_damage()
-            self.dmg += sneak_dmg
-            sneak_attack_applied = True
+            if (advantage and hit2 and not sneak_attack_applied):  # Only apply sneak attack if it's not already applied
+                sneak_dmg = sneak_attack.sneak_damage()
+                self.dmg += sneak_dmg
+                sneak_attack_applied = True
 
         return hit, roll, self.dmg
 

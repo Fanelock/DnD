@@ -1,11 +1,9 @@
 import random as rd
 from abc import ABC, abstractmethod
 
-class weapon_attack(ABC):
-    def __init__(self, str_mod, dex_mod, prof_bonus):
-        self.str = str_mod
-        self.dex = dex_mod
-        self.prof = prof_bonus
+class Weapon_attack(ABC):
+    def __init__(self, owner):
+        self.owner = owner
         self.hit_roll = 0
         self.dmg = 0
 
@@ -21,9 +19,9 @@ class weapon_attack(ABC):
         else:
             self.hit_roll = rd.randint(1, 20)
         if dex:
-            total = self.hit_roll + self.dex + self.prof
+            total = self.hit_roll + self.owner.dex + self.owner.prof
         else:
-            total = self.hit_roll + self.str + self.prof
+            total = self.hit_roll + self.owner.str + self.owner.prof
 
         return total >= ac, self.hit_roll, advantage
 
@@ -33,7 +31,7 @@ class weapon_attack(ABC):
             for i in range(2 * number):
                 dmg_roll = rd.randint(1, dice_type)
                 self.dmg += dmg_roll
-            self.dmg += self.dex if dex else self.str
+            self.dmg += self.owner.dex if dex else self.owner.str
             return self.dmg
         elif not hit:
             return self.dmg
@@ -41,24 +39,10 @@ class weapon_attack(ABC):
             for i in range(number):
                 dmg_roll = rd.randint(1, dice_type)
                 self.dmg += dmg_roll
-            self.dmg += self.dex if dex else self.str
+            self.dmg += self.owner.dex if dex else self.owner.str
         return self.dmg
 
     @abstractmethod
     def __str__(self):
         pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -1,9 +1,9 @@
 import random as rd
-from Weapon_main import weapon_attack
+from Weapon_main import Weapon_attack
 
-class Longbow(weapon_attack):
-    def __init__(self, str_mod, dex_mod, prof_bonus, number, dice_type):
-        super().__init__(str_mod, dex_mod, prof_bonus)
+class Longbow(Weapon_attack):
+    def __init__(self, owner, number, dice_type):
+        super().__init__(owner)
         self.number = number
         self.dice_type = dice_type
         self.dmg = 0

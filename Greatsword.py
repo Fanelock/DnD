@@ -1,9 +1,9 @@
 import random as rd
-from Weapon_main import weapon_attack
+from Weapon_main import Weapon_attack
 
-class Greatsword(weapon_attack):
-    def __init__(self, str_mod, dex_mod, prof_bonus, number, dice_type):
-        super().__init__(str_mod, dex_mod, prof_bonus)
+class Greatsword(Weapon_attack):
+    def __init__(self, owner, number, dice_type):
+        super().__init__(owner)
         self.number = number
         self.dice_type = dice_type
         self.dmg = 0
@@ -18,7 +18,7 @@ class Greatsword(weapon_attack):
             for _ in range(self.number):
                 dmg_roll = max(rd.randint(1, self.dice_type), 3)
                 adjusted_dmg += dmg_roll
-            adjusted_dmg += self.str
+            adjusted_dmg += self.owner.str
             self.dmg = adjusted_dmg
 
         elif mastery == True and roll == 20:
@@ -26,11 +26,11 @@ class Greatsword(weapon_attack):
             for _ in range(2*self.number):
                 dmg_roll = max(rd.randint(1, self.dice_type), 3)
                 adjusted_dmg += dmg_roll
-            adjusted_dmg +=  self.str
+            adjusted_dmg +=  self.owner.str
             self.dmg = adjusted_dmg
 
         if self.dmg == 0 and fighting_style == True:
-            self.dmg = self.str
+            self.dmg = self.owner.str
 
         return hit, roll, self.dmg
 
