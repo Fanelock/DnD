@@ -1,14 +1,15 @@
 import random as rd
-from Weapon_main import Weapon_attack
+from Weapon_main import WeaponAttack
 
-class Greatsword(Weapon_attack):
+class Greatsword(WeaponAttack):
     def __init__(self, owner, number, dice_type):
-        super().__init__(owner)
+        super().__init__(owner, "Greatsword")
         self.number = number
         self.dice_type = dice_type
         self.dmg = 0
+        self.supports_sneak_attack = False
 
-    def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style):
+    def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style, sneak_attack=None):
         hit, roll, advantage = super().attack_roll(ac, dex, advantage, disadvantage)
 
         self.dmg = self.calc_dmg(hit, roll, self.number, self.dice_type, dex)

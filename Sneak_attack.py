@@ -1,9 +1,9 @@
-from Weapon_main import Weapon_attack
+from Weapon_main import WeaponAttack
 import random as rd
 
-class SneakAttack(Weapon_attack):
+class SneakAttack(WeaponAttack):
     def __init__(self, owner, number, dice_type):
-        super().__init__(owner)
+        super().__init__(owner, name="Sneak Attack")
         self.number = number
         self.dice_type = dice_type
         self.dmg = 0

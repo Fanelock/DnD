@@ -1,10 +1,11 @@
 import random as rd
 from abc import ABC, abstractmethod
 
-class Weapon_attack(ABC):
-    def __init__(self, owner):
+class WeaponAttack(ABC):
+    def __init__(self, owner, name):
         self.owner = owner
         self.hit_roll = 0
+        self.name = name
         self.dmg = 0
 
     def attack_roll(self, ac, dex, advantage, disadvantage):

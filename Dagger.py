@@ -1,13 +1,14 @@
-from Weapon_main import Weapon_attack
+from Weapon_main import WeaponAttack
 from Sneak_attack import SneakAttack
 from Rogue_class import Rogue
 
-class Dagger(Weapon_attack):
+class Dagger(WeaponAttack):
     def __init__(self, owner, number, dice_type):
-        super().__init__(owner)
+        super().__init__(owner, "Dagger")
         self.number = number
         self.dice_type = dice_type
         self.dmg = 0
+        self.supports_sneak_attack = True
 
     def perform_attack(self, ac, dex, advantage, disadvantage, mastery, fighting_style, sneak_attack: SneakAttack = None):
         hit, roll, advantage = super().attack_roll(ac, dex, advantage, disadvantage)
