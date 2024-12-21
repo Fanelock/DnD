@@ -1,11 +1,10 @@
-import random as rd
-from Weapon_main import WeaponAttack
+from ..Weapon_main import WeaponAttack
 
 class Longbow(WeaponAttack):
-    def __init__(self, owner, number, dice_type):
+    def __init__(self, owner,):
         super().__init__(owner, "Longbow")
-        self.number = number
-        self.dice_type = dice_type
+        self.number = 1
+        self.dice_type = 8
         self.dmg = 0
         self.supports_sneak_attack = True
 

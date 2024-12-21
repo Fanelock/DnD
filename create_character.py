@@ -1,7 +1,5 @@
 import pandas as pd
-import json
-from Ranger_class import Ranger
-from Rogue_class import Rogue
+from DND_weapons.class_files import Ranger, Rogue
 
 class Create:
     def __init__(self, file):
@@ -15,7 +13,7 @@ class Create:
             name = row['Name']
             level = int(row['Level'])
             class_name = row['Class']
-            subclass_name = row.get('Subclass', None)  # Subclass might be optional
+            subclass_name = row.get('Subclass', None)
             str_mod = int(row['Str'])
             dex_mod = int(row['Dex'])
             con_mod = int(row['Con'])
@@ -24,7 +22,6 @@ class Create:
             cha_mod = int(row['Cha'])
             prof_bonus = int(row['Prof'])
 
-            # Check if class_name exists in the module
             class_ = globals().get(class_name)
 
             if class_:
