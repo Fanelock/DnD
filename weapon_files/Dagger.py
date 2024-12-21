@@ -1,12 +1,12 @@
-from Weapon_main import WeaponAttack
-from Sneak_attack import SneakAttack
-from Rogue_class import Rogue
+from ..Weapon_main import WeaponAttack
+from ..class_files import SneakAttack
+from ..class_files import Rogue
 
 class Dagger(WeaponAttack):
-    def __init__(self, owner, number, dice_type):
+    def __init__(self, owner):
         super().__init__(owner, "Dagger")
-        self.number = number
-        self.dice_type = dice_type
+        self.number = 1
+        self.dice_type = 4
         self.dmg = 0
         self.supports_sneak_attack = True
 

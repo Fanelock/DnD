@@ -1,5 +1,5 @@
-from Rogue_class import Rogue
-from Ranger_class import Ranger
+from DND_weapons.class_files import Rogue
+
 
 class AttackHandler:
     @staticmethod
@@ -25,9 +25,7 @@ class AttackHandler:
         # Perform the attack
         damage = weapon.perform_attack(
             **attack_inputs,
-            sneak_attack=owner.sneak_attack_handler if isinstance(owner, Rogue) and getattr(weapon,
-                                                                                            'supports_sneak_attack',
-                                                                                            False) else None
+            sneak_attack=owner.sneak_attack_handler if isinstance(owner, Rogue) and getattr(weapon, 'supports_sneak_attack', False) else None
         )
 
         return damage
