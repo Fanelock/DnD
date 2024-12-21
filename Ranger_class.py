@@ -8,7 +8,7 @@ class Ranger(ABC):
         self.dex = dex_mod
         self.con = con_mod
         self.int = int_mod
-        self.wis = wis_mod
+        self.wis = wis_modD
         self.cha = cha_mod
         self.prof = prof_bonus
 
