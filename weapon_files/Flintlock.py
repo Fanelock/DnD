@@ -2,9 +2,9 @@ from ..Weapon_main import WeaponAttack
 from ..class_files import Rogue
 from .. import AttackHandler
 
-class Longbow(WeaponAttack):
+class Flintlock(WeaponAttack):
     def __init__(self, owner,):
-        super().__init__(owner, "Longbow", "Ranged")
+        super().__init__(owner, "Flintlock", "Ranged")
         self.number = 1
         self.dice_type = 8
         self.dmg = 0
@@ -25,4 +25,4 @@ class Longbow(WeaponAttack):
         return hit, roll, self.dmg
 
     def __str__(self):
-        return f"You Longbow deals {self.dmg} damage to the target!"
+        return f"You Flintlock deals {self.dmg} damage to the target!"

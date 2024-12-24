@@ -2,11 +2,11 @@ import random as rd
 from .. import AttackHandler
 from ..Weapon_main import WeaponAttack
 
-class Greatsword(WeaponAttack):
+class Glaive(WeaponAttack):
     def __init__(self, owner):
-        super().__init__(owner, "Greatsword", "Two-Handed")
-        self.number = 2
-        self.dice_type = 6
+        super().__init__(owner, "Glaive", "Two-Handed")
+        self.number = 1
+        self.dice_type = 10
         self.dmg = 0
         self.supports_sneak_attack = False
 
@@ -26,30 +26,27 @@ class Greatsword(WeaponAttack):
         print("Enter attack details:")
         attack_inputs = AttackHandler.get_attack_inputs()  # Collect user inputs
 
-        include_crits = input("Include critical hits in the simulation? (1/0): ").strip().lower() == '1'
-
         total_damage = 0
         total_hit_damage = 0
         hit_count = 0
         results = []
 
         for _ in range(num_attacks):
-            while True:
-                hit, roll, damage = self.perform_attack(
-                    ac=attack_inputs['ac'],
-                    dex=attack_inputs['dex'],
-                    advantage=attack_inputs['advantage'],
-                    disadvantage=attack_inputs['disadvantage'],
-                    mastery=attack_inputs['mastery'],
-                    fighting_style=self.owner.fighting_style,
-                )
-                if include_crits or roll != 20:  # If crits are allowed, or this is not a crit, exit the loop
-                    break
+            hit, roll, damage = self.perform_attack(
+                ac=attack_inputs['ac'],
+                dex=attack_inputs['dex'],
+                advantage=attack_inputs['advantage'],
+                disadvantage=attack_inputs['disadvantage'],
+                mastery=attack_inputs['mastery'],
+                fighting_style=attack_inputs['fighting_style'],
+            )
             results.append(damage)
             total_damage += damage
             if hit:
                 total_hit_damage += damage
                 hit_count += 1
+
+        print("Unique Damage Values:", set(results))
 
         overall_avg_damage = total_damage / num_attacks
         hit_avg_damage = total_hit_damage / hit_count if hit_count > 0 else 0
@@ -57,5 +54,4 @@ class Greatsword(WeaponAttack):
         return results, overall_avg_damage, hit_avg_damage, hit_count, total_hit_damage
 
     def __str__(self):
-        return f"You Greatsword deals {self.dmg} damage to the target!"
-
+        return f"You Glaive deals {self.dmg} damage to the target!"

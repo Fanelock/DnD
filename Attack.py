@@ -11,7 +11,6 @@ class AttackHandler:
             "advantage": input("Does the attack have advantage? (1/0): ").strip().lower() == "1",
             "disadvantage": input("Does the attack have disadvantage? (1/0): ").strip().lower() == "1",
             "mastery": input("Does the attacker have mastery? (1/0): ").strip().lower() == "1",
-            "fighting_style": input("Is a fighting style being used? (1/0): ").strip().lower() == "1",
         }
         return inputs
 
@@ -24,7 +23,7 @@ class AttackHandler:
 
         # Perform the attack
         damage = weapon.perform_attack(
-            **attack_inputs,
+            **attack_inputs, fighting_style = owner.fighting_style,
             sneak_attack=owner.sneak_attack_handler if isinstance(owner, Rogue) and getattr(weapon, 'supports_sneak_attack', False) else None
         )
 

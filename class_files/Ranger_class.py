@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
 
 class Ranger(ABC):
-    def __init__(self, level, subclass, str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod, prof_bonus):
+    def __init__(self, level, subclass, fighting_style, str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod, prof_bonus):
         self.level = level
         self.subclass = subclass
+        self.fighting_style = fighting_style
         self.str = str_mod
         self.dex = dex_mod
         self.con = con_mod

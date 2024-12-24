@@ -1,3 +1,5 @@
+from email.policy import default
+
 import pandas as pd
 from DND_weapons.class_files import Ranger, Rogue
 
@@ -14,6 +16,7 @@ class Create:
             level = int(row['Level'])
             class_name = row['Class']
             subclass_name = row.get('Subclass', None)
+            fighting_style = row.get('Fighting Style', None)
             str_mod = int(row['Str'])
             dex_mod = int(row['Dex'])
             con_mod = int(row['Con'])
@@ -26,9 +29,9 @@ class Create:
 
             if class_:
                 if class_name == "Ranger":
-                    character = class_(level, subclass_name, str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod, prof_bonus)
+                    character = class_(level, subclass_name, fighting_style, str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod, prof_bonus)
                 elif class_name == "Rogue":
-                    character = class_(str_mod, dex_mod, wis_mod, prof_bonus)
+                    character = class_(level, subclass_name,fighting_style, str_mod, dex_mod, con_mod, int_mod, wis_mod, cha_mod, prof_bonus)
                 else:
                     print(f"Unsupported class: {class_name}")
                     continue
