@@ -4,7 +4,7 @@ from ..class_files import Rogue
 
 class Dagger(WeaponAttack):
     def __init__(self, owner):
-        super().__init__(owner, "Dagger")
+        super().__init__(owner, "Dagger", "Light")
         self.number = 1
         self.dice_type = 4
         self.dmg = 0
@@ -15,14 +15,17 @@ class Dagger(WeaponAttack):
 
         self.dmg = self.calc_dmg(hit, roll, self.number, self.dice_type, dex)
 
-        if mastery:
-            hit2, roll2, advantage2 = super().attack_roll(ac, dex, advantage, disadvantage)  # Second attack roll
-            second_attack_dmg = self.calc_dmg(hit2, roll2, self.number, self.dice_type, dex)
+        self.dmg = self.apply_fighting_style(hit, roll, self.number, self.dice_type, dex)
 
-            self.dmg += second_attack_dmg
+        if fighting_style == None:
+            if mastery:
+                hit2, roll2, advantage2 = super().attack_roll(ac, dex, advantage, disadvantage)  # Second attack roll
+                second_attack_dmg = self.calc_dmg(hit2, roll2, self.number, self.dice_type, dex)
 
-            if second_attack_dmg != 0:
-                self.dmg += second_attack_dmg - self.owner.dex
+                self.dmg += second_attack_dmg
+
+                if second_attack_dmg != 0:
+                    self.dmg += second_attack_dmg - self.owner.dex
 
         if isinstance(self.owner, Rogue):
             sneak_attack_applied = False  # Flag to track if sneak attack has been applied
